@@ -1,9 +1,10 @@
-// ignore_for_file: non_constant_identifier_names, unused_element, prefer_const_constructors
+// ignore_for_file: non_constant_identifier_names, unused_element, prefer_const_constructors, unused_field
 
 import 'package:flutter/material.dart';
+import 'package:frivia_app/provider/game_page_provider.dart';
+import 'package:provider/provider.dart';
 
 class GamePage extends StatefulWidget {
-
   const GamePage({super.key});
 
   @override
@@ -13,20 +14,27 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   double? _devWidth, _devHeight;
 
+  GamePageProvider? _pageProvider;
+
   @override
   Widget build(BuildContext context) {
-    _devHeight= MediaQuery.of(context).size.height;
-    _devWidth= MediaQuery.of(context).size.width;
-    return _Good_UI();
+    _devHeight = MediaQuery.of(context).size.height;
+    _devWidth = MediaQuery.of(context).size.width;
+    return ChangeNotifierProvider(
+        create: (_context) => GamePageProvider(context: context),
+        child: _Good_UI());
   }
 
   Widget _Good_UI() {
-    return Scaffold(
-        body: SafeArea(
-      child: Container(
-        child: _gameUI(),
-      ),
-    ));
+    return Builder(builder: (_context) {
+      _pageProvider = _context.watch<GamePageProvider>();
+      return Scaffold(
+          body: SafeArea(
+        child: Container(
+          child: _gameUI(),
+        ),
+      ));
+    });
   }
 
   Widget _gameUI() {
@@ -40,7 +48,7 @@ class _GamePageState extends State<GamePage> {
           children: [
             _trueButton(),
             SizedBox(
-              height: _devHeight! *0.01,
+              height: _devHeight! * 0.01,
             ),
             _falseButton(),
           ],
@@ -54,38 +62,34 @@ class _GamePageState extends State<GamePage> {
       child: Text(
         "Test Question 1 nothing Interensting",
         style: TextStyle(
-          color: Colors.white,
-          fontSize: 25,
-          fontWeight: FontWeight.w400
-        ),
+            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),
       ),
     );
   }
 
-  Widget _trueButton(){
+  Widget _trueButton() {
     return MaterialButton(
-      onPressed: (){},
+      onPressed: () {},
       color: Colors.green,
       minWidth: _devWidth! * 0.80,
-      height: _devHeight! *0.10,
-      child: Text("True",
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 25
-      ),),
-      );
+      height: _devHeight! * 0.10,
+      child: Text(
+        "True",
+        style: TextStyle(color: Colors.white, fontSize: 25),
+      ),
+    );
   }
-  Widget _falseButton(){
+
+  Widget _falseButton() {
     return MaterialButton(
-      onPressed: (){},
+      onPressed: () {},
       color: Colors.red,
       minWidth: _devWidth! * 0.80,
-      height: _devHeight! *0.10,
-      child: Text("False",
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 25
-      ),),
-      );
+      height: _devHeight! * 0.10,
+      child: Text(
+        "False",
+        style: TextStyle(color: Colors.white, fontSize: 25),
+      ),
+    );
   }
 }
