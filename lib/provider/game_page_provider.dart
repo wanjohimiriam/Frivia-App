@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, no_leading_underscores_for_local_identifiers
+// ignore_for_file: prefer_final_fields, no_leading_underscores_for_local_identifiers, prefer_const_constructors, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -27,7 +27,7 @@ class GamePageProvider extends ChangeNotifier {
     var _data = (_response.data as Map);
     // print("Data is: $_data");
     questions = _data["results"];
-    debugPrint("Questions are: $questions");
+    // debugPrint("Questions are: $questions");
     notifyListeners();
   }
 
@@ -53,6 +53,28 @@ class GamePageProvider extends ChangeNotifier {
         });
     await Future.delayed(const Duration(seconds: 1));
     Navigator.pop(context);
-    notifyListeners();
+    if (_currentQuestions == maxQuestions) {
+      endGame();
+    } else {
+      notifyListeners();
+    }
+  }
+
+  void endGame() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext _context) {
+          return AlertDialog(
+            backgroundColor: Colors.blue,
+            title: Text(
+              "End Game",
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            ),
+            content: Text("score: 0/10"),
+          );
+        });
+    await Future.delayed(Duration(seconds: 3));
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 }
