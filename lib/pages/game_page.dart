@@ -28,12 +28,21 @@ class _GamePageState extends State<GamePage> {
   Widget _Good_UI() {
     return Builder(builder: (_context) {
       _pageProvider = _context.watch<GamePageProvider>();
+      if (_pageProvider!.questions != null){
       return Scaffold(
           body: SafeArea(
         child: Container(
           child: _gameUI(),
         ),
       ));
+      }
+      else{
+        return Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
+      }
     });
   }
 
@@ -56,11 +65,12 @@ class _GamePageState extends State<GamePage> {
       ],
     );
   }
-
+// ebu run sasa
   Widget _textUI() {
     return Center(
       child: Text(
-        "Test Question 1 nothing Interensting",
+        
+        _pageProvider!.getCurrentQuestionsAPI(),
         style: TextStyle(
             color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),
       ),
