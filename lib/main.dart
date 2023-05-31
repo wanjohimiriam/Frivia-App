@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:frivia_app/pages/game_page.dart';
 
+import 'pages/homePage.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: "ArchitectsDaughters",
           scaffoldBackgroundColor: Color.fromRGBO(31, 31, 31, 1.0)),
-      home: GamePage(),
+      home: Homepage(),
     );
   }
 }

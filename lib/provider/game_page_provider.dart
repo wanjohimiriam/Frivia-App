@@ -9,6 +9,7 @@ class GamePageProvider extends ChangeNotifier {
   final Dio _dio = Dio();
   int maxQuestions = 10;
   int _currentQuestions = 0;
+  int correctCount =0;
 
   List? questions;
 
@@ -38,6 +39,7 @@ class GamePageProvider extends ChangeNotifier {
 
   void answerCurrentQuestions(String _answer) async {
     bool isCorrect = questions![_currentQuestions]['correct_answer'] == _answer;
+    correctCount += isCorrect ? 1 : 0;
     _currentQuestions++;
     //print(isCorrect ? "Correct" : "Incorrect");
     showDialog(
@@ -49,6 +51,7 @@ class GamePageProvider extends ChangeNotifier {
               isCorrect ? Icons.check_circle : Icons.cancel_sharp,
               color: Colors.white,
             ),
+            
           );
         });
     await Future.delayed(const Duration(seconds: 1));
@@ -70,7 +73,7 @@ class GamePageProvider extends ChangeNotifier {
               "End Game",
               style: TextStyle(fontSize: 25, color: Colors.white),
             ),
-            content: Text("score: 0/10"),
+            content: Text("score: $correctCount / $maxQuestions"),
           );
         });
     await Future.delayed(Duration(seconds: 3));
