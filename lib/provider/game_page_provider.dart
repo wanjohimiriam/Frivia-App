@@ -9,14 +9,15 @@ class GamePageProvider extends ChangeNotifier {
   final Dio _dio = Dio();
   int maxQuestions = 10;
   int _currentQuestions = 0;
-  int correctCount =0;
+  int correctCount = 0;
+  final String difficultyLevel;
 
   List? questions;
 
   BuildContext context;
-  GamePageProvider({required this.context}) {
+  GamePageProvider({required this.context, required this.difficultyLevel}) {
     _dio.options.baseUrl = "https://opentdb.com/api.php?";
-    _openQuestionsFromAPI(10, "easy", "boolean");
+    _openQuestionsFromAPI(10, difficultyLevel, "boolean");
   }
 
   Future<void> _openQuestionsFromAPI(
@@ -51,7 +52,6 @@ class GamePageProvider extends ChangeNotifier {
               isCorrect ? Icons.check_circle : Icons.cancel_sharp,
               color: Colors.white,
             ),
-            
           );
         });
     await Future.delayed(const Duration(seconds: 1));

@@ -13,7 +13,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   double currentValue = 0;
   double? _devWidth, _devHeight;
-  List _difficulty =["easy", "difficulty" ,"hard"];
+  List _difficulty = ["Easy", "Medium", "Hard"];
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,17 @@ class _HomepageState extends State<Homepage> {
                     style: TextStyle(color: Colors.white, fontSize: 40)),
                 Text(
                   _difficulty[currentValue.toInt()],
-                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500),
                 ),
               ],
             ),
             Slider(
-              min: 0,
-              max: 2,
-              label: "difficulty",
+                min: 0,
+                max: 2,
+                label: "difficulty",
                 value: currentValue,
                 divisions: 2,
                 activeColor: Colors.blue,
@@ -53,7 +56,9 @@ class _HomepageState extends State<Homepage> {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (BuildContext) {
-                  return GamePage();
+                  return GamePage(
+                      diffcultyLevel:
+                          _difficulty[currentValue.toInt()].toString());
                 }));
               },
               color: Colors.blue,
