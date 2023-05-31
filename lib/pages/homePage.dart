@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_final_fields
 
 import 'package:flutter/material.dart';
 import 'package:frivia_app/pages/game_page.dart';
@@ -13,6 +13,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   double currentValue = 0;
   double? _devWidth, _devHeight;
+  List _difficulty =["easy", "difficulty" ,"hard"];
+
   @override
   Widget build(BuildContext context) {
     _devHeight = MediaQuery.of(context).size.height;
@@ -30,15 +32,18 @@ class _HomepageState extends State<Homepage> {
                 Text("Frivia",
                     style: TextStyle(color: Colors.white, fontSize: 40)),
                 Text(
-                  "easy",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  _difficulty[currentValue.toInt()],
+                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
             Slider(
+              min: 0,
+              max: 2,
+              label: "difficulty",
                 value: currentValue,
+                divisions: 2,
                 activeColor: Colors.blue,
-                inactiveColor: Colors.white,
                 onChanged: (value) {
                   setState(() {
                     currentValue = value;
