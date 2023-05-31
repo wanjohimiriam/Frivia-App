@@ -30,7 +30,14 @@ class GamePageProvider extends ChangeNotifier {
     notifyListeners();
   }
   String getCurrentQuestionsAPI(){
-    debugPrint("Questions are: $questions");
+    //debugPrint("Questions are: $questions");
     return questions![_currentQuestions]['question'] ?? "loading...";
   }
+
+  void answerCurrentQuestions( String _answer) async{
+    bool isCorrect = questions![_currentQuestions]['correct_answer']== _answer;
+    _currentQuestions++;
+    print(isCorrect ? "Correct" : "Incorrect");
+    notifyListeners();
+}
 }
